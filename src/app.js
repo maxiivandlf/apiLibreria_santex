@@ -1,7 +1,7 @@
 const express = require('express');
 
 const PORT = 3005;
-const { routerBook } = require('./routes');
+const { routerBook, routerLibrary } = require('./routes');
 
 // Middleware
 const app = express();
@@ -16,9 +16,7 @@ app.use((req, res, next) => {
 app.get('/user', (req, res) => {
   res.send('hola');
 });
-app.get('/library', (req, res) => {
-  res.send('library');
-});
+app.use('/library', routerLibrary);
 
 app.use('/book', routerBook);
 

@@ -1,5 +1,15 @@
+const bookService = require('../services');
+
 const createBook = (req, res) => {
-  res.send('hola desde books');
+  try {
+    const newBook = bookService.creatBook(req.params.bookID, req.body);
+    res.send(newBook);
+  } catch (error) {
+    res.status(404).json({
+      action: 'createBook',
+      error: error.message,
+    });
+  }
 };
 
 const getBook = (req, res) => {

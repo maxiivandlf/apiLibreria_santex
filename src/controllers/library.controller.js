@@ -1,3 +1,5 @@
+const { libraryService } = require('../services');
+
 const getLibrary = (req, res) => {
   res.send('estas son las librerias');
 };
@@ -15,6 +17,6 @@ const deleteLibrary = (req, res) => {
 };
 
 const createLibrary = (req, res) => {
-  res.send('creando librerias');
+  res.send(libraryService.createLibrary());
 };
 module.exports = { getLibrary, deleteLibrary, updateLibrary, createLibrary };

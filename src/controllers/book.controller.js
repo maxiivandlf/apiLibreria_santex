@@ -1,4 +1,4 @@
-const bookService = require('../services');
+const { bookService } = require('../services');
 
 const createBook = (req, res) => {
   try {

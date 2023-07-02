@@ -1,7 +1,8 @@
 const express = require('express');
+const { initializeDB } = require('./config/dbConfig');
+const { routerBook, routerLibrary, routerUser } = require('./routes');
 
 const PORT = 3005;
-const { routerBook, routerLibrary } = require('./routes');
 
 // Middleware
 const app = express();
@@ -13,13 +14,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/user', (req, res) => {
-  res.send('hola');
-});
+app.use('/users', routerUser);
 app.use('/library', routerLibrary);
-
 app.use('/book', routerBook);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await initializeDB();
   console.log(`Server corriendo en: ${PORT}`);
 });

@@ -1,11 +1,19 @@
 const express = require('express');
-const { bookController } = require('../controllers');
-
 const router = express.Router();
+const { bookController } = require('../controllers');
+const {
+  authJWTMiddleware,
+  userIsAdminMDW,
+} = require('../middleware/auth.middleware');
 
-router.post('/:bookID', bookController.createBook);
+router.post(
+  '/:bookID',
+  authJWTMiddleware,
+  userIsAdminMDW,
+  bookController.createBook
+);
 
 router.get('/:bookID', bookController.getBook);
-router.put('/:bookID', bookController.upDateBook);
+router.put('/:bookID', authJWTMiddleware, bookController.upDateBook);
 
 module.exports = router;

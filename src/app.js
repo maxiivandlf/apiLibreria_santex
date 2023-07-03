@@ -1,6 +1,11 @@
 const express = require('express');
 const { initializeDB } = require('./config/dbConfig');
-const { routerBook, routerLibrary, routerUser } = require('./routes');
+const {
+  routerBook,
+  routerLibrary,
+  routerUser,
+  routerAuth,
+} = require('./routes');
 
 const PORT = 3005;
 
@@ -17,6 +22,7 @@ app.use((req, res, next) => {
 app.use('/users', routerUser);
 app.use('/library', routerLibrary);
 app.use('/book', routerBook);
+app.use('/login', routerAuth);
 
 app.listen(PORT, async () => {
   await initializeDB();

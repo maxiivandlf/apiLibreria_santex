@@ -11,18 +11,36 @@ const getUser = async (id) => {
   }
 };
 
-const getUserByCriteria = async (criteria) => {
+// const getUserByCriteria = async (criteria) => {
+//   try {
+//     const user = await userModel.findAll({
+//       where: {
+//         [Op.or]: [{ email: criteria.email }, { firstName: criteria.firstName }],
+//       },
+//       include: { all: true },
+//     });
+//     return user;
+//   } catch (error) {
+//     console.log('Error when validating user', error);
+//     throw error;
+//   }
+// };
+
+const validateUser = async (options) => {
   try {
-    const user = await userModel.findAll({
+    const userFound = await userModel.findAll({
       where: {
-        [Op.or]: [{ email: criteria.email }, { firstName: criteria.firstName }],
+        email: options.user,
+        password: options.password,
       },
-      include: { all: true },
     });
-    return user;
+    if (userFound.length !== 0) {
+      return userFound;
+    }
+    return false;
   } catch (error) {
     console.log('Error when validating user', error);
-    throw error;
+    return false;
   }
 };
 
@@ -46,4 +64,4 @@ const createTicket = async (userid, ticket) => {
   }
 };
 
-module.exports = { getUser, createUser, createTicket };
+module.exports = { getUser, createUser, createTicket, validateUser };

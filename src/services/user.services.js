@@ -19,4 +19,9 @@ const createTicket = async (userid, ticket) => {
   return null;
 };
 
-module.exports = { createUser, getUser, createTicket };
+const validateUser = async ({ user, password }) => {
+  const validUser = await userProvider.validateUser({ user, password });
+  return validUser;
+};
+
+module.exports = { createUser, getUser, createTicket, validateUser };

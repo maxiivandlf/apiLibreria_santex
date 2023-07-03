@@ -3,6 +3,7 @@ const { bookService } = require('../services');
 const createBook = (req, res) => {
   try {
     console.log(`El usuario que creo el libro es ${req.user.role}`);
+
     const newBook = bookService.creatBook(req.params.bookID, req.body);
     res.send(newBook);
   } catch (error) {
@@ -14,6 +15,7 @@ const createBook = (req, res) => {
 };
 
 const getBook = (req, res) => {
+  console.log(`El usuario que solicita el libro es ${req.user.role}`);
   res.send(req.params.bookID);
 };
 

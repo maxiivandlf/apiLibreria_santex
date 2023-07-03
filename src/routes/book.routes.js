@@ -13,7 +13,7 @@ router.post(
   bookController.createBook
 );
 
-router.get('/:bookID', bookController.getBook);
+router.get('/:bookID', authJWTMiddleware, bookController.getBook);
 router.put('/:bookID', authJWTMiddleware, bookController.upDateBook);
 
 module.exports = router;

@@ -1,8 +1,9 @@
-const { userModel } = require('../models');
+const { Op } = require('sequelize');
+const { userModel, ticketModel } = require('../models');
 
 const getUser = async (id) => {
   try {
-    const user = await userModel.User.findByPk(id);
+    const user = await userModel.findByPk(id, { include: { all: true } });
     return user;
   } catch (error) {
     console.log('Error getting user', error);
@@ -10,9 +11,24 @@ const getUser = async (id) => {
   }
 };
 
+const getUserByCriteria = async (criteria) => {
+  try {
+    const user = await userModel.findAll({
+      where: {
+        [Op.or]: [{ email: criteria.email }, { firstName: criteria.firstName }],
+      },
+      include: { all: true },
+    });
+    return user;
+  } catch (error) {
+    console.log('Error when validating user', error);
+    throw error;
+  }
+};
+
 const createUser = async (user) => {
   try {
-    const newUser = await userModel.User.create(user);
+    const newUser = await userModel.create(user);
     return newUser;
   } catch (error) {
     console.log('Error creating user', error);
@@ -20,4 +36,14 @@ const createUser = async (user) => {
   }
 };
 
-module.exports = { getUser, createUser };
+const createTicket = async (userid, ticket) => {
+  try {
+    const newTicket = await ticketModel.create({ ...ticket, UserId: userid });
+    return newTicket;
+  } catch (error) {
+    console.log('Error creating ticket', error);
+    throw error;
+  }
+};
+
+module.exports = { getUser, createUser, createTicket };

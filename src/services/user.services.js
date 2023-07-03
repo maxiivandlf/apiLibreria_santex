@@ -10,4 +10,13 @@ const getUser = async (userId) => {
   return user;
 };
 
-module.exports = { createUser, getUser };
+const createTicket = async (userid, ticket) => {
+  const user = await userProvider.getUser(userid);
+  if (user) {
+    const newTicket = await userProvider.createTicket(userid, ticket);
+    return newTicket;
+  }
+  return null;
+};
+
+module.exports = { createUser, getUser, createTicket };

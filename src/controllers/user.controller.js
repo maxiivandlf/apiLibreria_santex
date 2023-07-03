@@ -28,4 +28,19 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser };
+const createTicket = async (req, res) => {
+  try {
+    const newTicket = await usersService.createTicket(
+      req.params.userID,
+      req.body
+    );
+    res.status(200).json(newTicket);
+  } catch (error) {
+    console.log('create ticket error', error);
+    res
+      .status(500)
+      .json({ message: 'Error al crear ticket', error: error.message });
+  }
+};
+
+module.exports = { getUsers, createUser, createTicket };

@@ -14,7 +14,6 @@ const getAllLibraries = async (req, res) => {
 const getLibraryById = async (req, res) => {
   try {
     const library = await libraryService.getLibraryById(req.params.libraryID);
-    console.log(library);
     if (library) {
       res.status(200).json(library);
     } else {

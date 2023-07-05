@@ -69,7 +69,7 @@ const createBook = async (libraryiId, book) => {
     });
     return newBook;
   } catch (error) {
-    console.log('Error creating book');
+    console.log('Error creating book', error);
     throw error;
   }
 };

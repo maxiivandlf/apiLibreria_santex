@@ -1,6 +1,17 @@
 const { usersService } = require('../services');
 
-const getUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await usersService.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error al obtener usuarios', error: error.message });
+  }
+};
+
+const getUserById = async (req, res) => {
   try {
     const user = await usersService.getUser(req.params.userID);
     if (!user) {
@@ -43,4 +54,4 @@ const createTicket = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, createTicket };
+module.exports = { getUserById, createUser, createTicket, getAllUsers };

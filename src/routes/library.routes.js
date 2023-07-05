@@ -4,9 +4,10 @@ const { libraryController } = require('../controllers');
 const router = express.Router();
 
 router.post('/', libraryController.createLibrary);
-
-router.get('/', libraryController.getLibrary);
+router.get('/:libraryID', libraryController.getLibraryById);
+router.get('/', libraryController.getAllLibraries);
 router.put('/:libraryID', libraryController.updateLibrary);
 router.delete('/:libraryID', libraryController.deleteLibrary);
+router.post('/:libraryID/book', libraryController.createBook);
 
 module.exports = router;

@@ -26,6 +26,16 @@ const getUser = async (id) => {
 //   }
 // };
 
+const getAllUsers = async () => {
+  try {
+    const users = await userModel.findAll({ include: { all: true } });
+    return users;
+  } catch (error) {
+    console.log('Error getting users', error);
+    throw error;
+  }
+};
+
 const validateUser = async (options) => {
   try {
     const userFound = await userModel.findAll({
@@ -64,4 +74,10 @@ const createTicket = async (userid, ticket) => {
   }
 };
 
-module.exports = { getUser, createUser, createTicket, validateUser };
+module.exports = {
+  getUser,
+  createUser,
+  createTicket,
+  validateUser,
+  getAllUsers,
+};

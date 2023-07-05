@@ -5,6 +5,11 @@ const createUser = async (user) => {
   return newUser;
 };
 
+const getAllUsers = async () => {
+  const users = await userProvider.getAllUsers();
+  return users;
+};
+
 const getUser = async (userId) => {
   const user = await userProvider.getUser(userId);
   return user;
@@ -24,4 +29,10 @@ const validateUser = async ({ user, password }) => {
   return validUser;
 };
 
-module.exports = { createUser, getUser, createTicket, validateUser };
+module.exports = {
+  createUser,
+  getUser,
+  createTicket,
+  validateUser,
+  getAllUsers,
+};
